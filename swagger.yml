@@ -1,0 +1,160 @@
+openapi: 3.0.3
+info:
+  title: svc-message-routing
+  version: 1.0.0
+  description: SMS routing service with message sending and opt-out management
+servers:
+  - url: http://localhost:8080/v1
+paths:
+  /messages:
+    post:
+      summary: Send an SMS message
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - phoneNumber
+                - content
+                - format
+              properties:
+                phoneNumber:
+                  type: string
+                  example: "+61461111111"
+                  description: Must start with + and contain exactly 11 digits
+                content:
+                  type: string
+                  example: "Hello world"
+                  description: Message content, max 160 characters
+                format:
+                  type: string
+                  example: "SMS"
+      responses:
+        '201':
+          description: Message created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  status:
+                    type: string
+                    enum: [PENDING, SENT, DELIVERED, BLOCKED]
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  errorMessage:
+                    type: string
+  /messages:
+    get:
+      summary: Retrieve all messages
+      responses:
+        '200':
+          description: List of messages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                    carrierName:
+                      type: string
+                      enum: [TELSTRA, OPTUS, SPARK, GLOBAL]
+                    status:
+                      type: string
+                      enum: [PENDING, SENT, DELIVERED, BLOCKED]
+  /messages/{id}:
+    get:
+      summary: Retrieve a message by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Message found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  status:
+                    type: string
+                    enum: [PENDING, SENT, DELIVERED, BLOCKED]
+        '404':
+          description: Message not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  errorMessage:
+                    type: string
+  /optout/{phoneNumber}:
+    post:
+      summary: Opt-out a phone number
+      parameters:
+        - name: phoneNumber
+          in: path
+          required: true
+          schema:
+            type: string
+            pattern: "^\+\d{11}$"
+            example: "+61411111111"
+            description: Phone number must start with + and contain 11 digits
+      responses:
+        '201':
+          description: Opt-out successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: [OPTED_OUT, ALREADY_OPTED_OUT]
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  errorMessage:
+                    type: string
+        '404':
+          description: Invalid phone number
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  errorMessage:
+                    type: string
