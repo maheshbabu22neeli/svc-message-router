@@ -35,21 +35,23 @@ public class GlobalExceptionHandlerAdvice {
     public ResponseEntity<ErrorMessageResponse> handleValidationException(
             ValidationException validationException) {
 
-        log.error("ResourceNotFoundException raised", validationException);
+        log.error("ValidationException raised", validationException);
 
         ErrorMessageResponse errorMessageResponse = new ErrorMessageResponse(
                 HttpStatus.BAD_REQUEST.value(),
                 validationException.getMessage()
         );
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessageResponse);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessageResponse);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorMessageResponse> handleValidationException(
-            MethodArgumentNotValidException ex) {
+    public ResponseEntity<ErrorMessageResponse> handleMethodArgumentNotValidException(
+            MethodArgumentNotValidException methodArgumentNotValidException) {
 
-        List<String> errors = ex.getBindingResult()
+        log.error("MethodArgumentNotValidException raised", methodArgumentNotValidException);
+
+        List<String> errors = methodArgumentNotValidException.getBindingResult()
                 .getFieldErrors()
                 .stream()
                 .map(fe -> fe.getField() + ": " + fe.getDefaultMessage())
@@ -61,10 +63,11 @@ public class GlobalExceptionHandlerAdvice {
 
     @ExceptionHandler(NoResourceFoundException.class)
     public ResponseEntity<ErrorMessageResponse> handleNoResourceFoundException(
-            NoResourceFoundException ex) {
+            NoResourceFoundException noResourceFoundException) {
+        log.error("NoResourceFoundException raised", noResourceFoundException);
 
         return ResponseEntity.badRequest()
-                .body(new ErrorMessageResponse(400, ex.getMessage()));
+                .body(new ErrorMessageResponse(400, noResourceFoundException.getMessage()));
     }
 
 

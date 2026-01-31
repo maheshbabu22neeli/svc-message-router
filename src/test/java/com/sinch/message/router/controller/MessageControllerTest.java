@@ -20,6 +20,7 @@ import static org.hamcrest.Matchers.containsString;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
@@ -136,6 +137,40 @@ public class MessageControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").value(messageResponse.getId()))
                 .andExpect(jsonPath("$.status").value(MessageStatusEnum.PENDING.toString()));
+    }
+
+    @Test
+    void test_getMessage_failure_response_missing_id() throws Exception {
+
+        mockMvc.perform(get("/v1/messages/{id}", ""))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.statusCode").value(400))
+                .andExpect(jsonPath("$.errorMessage").value(
+                        "No static resource v1/messages for request '/v1/messages/'."));
+    }
+
+    @Test
+    void test_getMessage_failure_response_when_id_empty_string() throws Exception {
+
+        mockMvc.perform(get("/v1/messages/{id}", " "))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.statusCode").value(400))
+                .andExpect(jsonPath("$.errorMessage").value(
+                        "id cannot be null or empty"));
+    }
+
+    @Test
+    void test_getMessage_success_response() throws Exception {
+
+        MessageResponse messageResponse =
+                new MessageResponse(UUID.randomUUID().toString(), MessageStatusEnum.DELIVERED);
+
+        when(messageService.getMessage(any())).thenReturn(messageResponse);
+
+        mockMvc.perform(get("/v1/messages/{id}", messageResponse.getId()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(messageResponse.getId()))
+                .andExpect(jsonPath("$.status").value(MessageStatusEnum.DELIVERED.toString()));
     }
 
 }

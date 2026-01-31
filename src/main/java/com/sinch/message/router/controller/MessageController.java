@@ -6,6 +6,7 @@ import com.sinch.message.router.models.MessageRequest;
 import com.sinch.message.router.models.MessageResponse;
 import com.sinch.message.router.service.IMessageService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -47,8 +48,8 @@ public class MessageController {
             @PathVariable String id) {
         log.info("Request received to get message by id: {}", id);
 
-        if (id == null || StringUtil.isNullOrEmpty(id.trim()))  {
-            throw new ValidationException("id cannot be null");
+        if (id == null || id.trim().isEmpty())  {
+            throw new ValidationException("id cannot be null or empty");
         }
 
         MessageResponse messageResponse = messageService.getMessage(id);
@@ -58,7 +59,7 @@ public class MessageController {
     }
 
     @GetMapping("/messages")
-    public ResponseEntity<List<MessageResponse>> getMessage() {
+    public ResponseEntity<List<MessageResponse>> getMessages() {
         log.info("Request received to get all messages");
 
         List<MessageResponse> messageResponseList = messageService.getAllMessages();
