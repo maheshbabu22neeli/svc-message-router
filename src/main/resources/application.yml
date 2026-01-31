@@ -1,1 +1,3 @@
-spring.application.name=svc-message-router
+spring:
+  application:
+    name: svc-message-router

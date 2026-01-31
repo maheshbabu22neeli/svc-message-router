@@ -6,7 +6,6 @@ import com.sinch.message.router.models.MessageRequest;
 import com.sinch.message.router.models.MessageResponse;
 import com.sinch.message.router.service.IRoutingService;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;

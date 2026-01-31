@@ -2,8 +2,6 @@ package com.sinch.message.router.enums;
 
 import lombok.Getter;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 @Getter
 public enum CarrierEnum {
 

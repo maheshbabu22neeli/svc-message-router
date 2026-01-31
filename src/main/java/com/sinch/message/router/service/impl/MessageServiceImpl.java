@@ -10,12 +10,9 @@ import com.sinch.message.router.models.MessageResponse;
 import com.sinch.message.router.service.IMessageService;
 import com.sinch.message.router.utils.MessageMappingUtil;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
