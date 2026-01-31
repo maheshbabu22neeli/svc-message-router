@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import tools.jackson.databind.ObjectMapper;
 
 import java.util.regex.Pattern;
 
@@ -23,6 +24,8 @@ public class OptOutController {
 
     private static final Pattern PHONE_REGEX = Pattern.compile("^\\+\\d{11}$");
 
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
     private final IMessageService messageService;
 
     @PostMapping("/optout/{phoneNumber}")
@@ -33,7 +36,7 @@ public class OptOutController {
 
         MessageResponse messageResponse = messageService.optOut(phoneNumber);
 
-        log.info("Response sent for optOut a phone number");
+        log.info("Response sent for optOut a phone number: {}", objectMapper.writeValueAsString(messageResponse));
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(messageResponse);
@@ -42,7 +45,7 @@ public class OptOutController {
     private void validatePhoneNumber(final String phoneNumber) {
 
         if (phoneNumber == null || StringUtil.isNullOrEmpty(phoneNumber.trim())) {
-            throw new ValidationException("phoneNumber cannot be null");
+            throw new ValidationException("phoneNumber cannot be null or empty");
         }
 
         if (!PHONE_REGEX.matcher(phoneNumber).matches()) {

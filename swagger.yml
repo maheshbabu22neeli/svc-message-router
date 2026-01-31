@@ -56,7 +56,6 @@ paths:
                     type: integer
                   errorMessage:
                     type: string
-  /messages:
     get:
       summary: Retrieve all messages
       responses:
@@ -74,10 +73,11 @@ paths:
                       format: uuid
                     carrierName:
                       type: string
-                      enum: [TELSTRA, OPTUS, SPARK, GLOBAL]
+                      enum: [ TELSTRA, OPTUS, SPARK, GLOBAL ]
                     status:
                       type: string
-                      enum: [PENDING, SENT, DELIVERED, BLOCKED]
+                      enum: [ PENDING, SENT, DELIVERED, BLOCKED ]
+
   /messages/{id}:
     get:
       summary: Retrieve a message by ID
@@ -122,7 +122,7 @@ paths:
           required: true
           schema:
             type: string
-            pattern: "^\+\d{11}$"
+            #pattern: "^\+\d{11}$"
             example: "+61411111111"
             description: Phone number must start with + and contain 11 digits
       responses:
@@ -137,17 +137,6 @@ paths:
                     type: string
                     enum: [OPTED_OUT, ALREADY_OPTED_OUT]
         '400':
-          description: Validation error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  statusCode:
-                    type: integer
-                  errorMessage:
-                    type: string
-        '404':
           description: Invalid phone number
           content:
             application/json:
