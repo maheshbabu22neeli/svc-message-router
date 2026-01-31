@@ -1,4 +1,4 @@
-package com.sinch.message.router.aspect;
+package com.sinch.message.router.advice;
 
 import com.sinch.message.router.exceptions.ResourceNotFoundException;
 import com.sinch.message.router.exceptions.ValidationException;
