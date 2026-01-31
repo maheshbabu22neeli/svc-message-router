@@ -8,11 +8,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class MessageRepository {
 
-    private final Map<String, MessageEntity> messageEntityMap = new HashMap<>();
+    private final Map<String, MessageEntity> messageEntityMap = new ConcurrentHashMap<>();
 
     public MessageEntity save(MessageEntity messageEntity) {
         messageEntityMap.put(messageEntity.getId(), messageEntity);
