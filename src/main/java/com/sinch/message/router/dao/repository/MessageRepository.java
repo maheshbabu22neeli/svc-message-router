@@ -4,7 +4,6 @@ import com.sinch.message.router.dao.entity.MessageEntity;
 import com.sinch.message.router.enums.MessageStatusEnum;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
