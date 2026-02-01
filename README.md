@@ -39,7 +39,7 @@ Routing logic for AU (+61) numbers alternates between **Telstra** and **Optus**.
 - Spring Web & Validation
 - Lombok
 - JUnit 5 & Mockito (unit testing)
-- ConcurrentHashMap (in-memory repository)
+- ConcurrentHashMap (in-memory repository)  for thread safety
 
 ---
 
@@ -114,7 +114,7 @@ curl --location 'http://localhost:8080/v1/messages' \
         --header 'Content-Type: application/json' \
         --data '{
         "phoneNumber": "+61461111545",
-        "content": "contect i am sefdgdsfgunding message",
+        "content": "Hello World Content",
         "format": "SMS"
         }'
 ```
