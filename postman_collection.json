@@ -14,7 +14,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n   \"phoneNumber\": \"+64461111156\",\r\n   \"content\": \"contect i am sefdgdsfgunding message\",\r\n   \"format\": \"SMS\"\r\n}",
+          "raw": "{\r\n   \"phoneNumber\": \"+63461111115\",\r\n   \"content\": \"Hello World, this is an assignment\",\r\n   \"format\": \"SMS\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -36,115 +36,13 @@
       },
       "response": [
         {
-          "name": "Missing all fields",
-          "originalRequest": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n   \"phoneNumber\": \"\",\r\n   \"content\": \"\",\r\n   \"format\": \"\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:8080/v1/messages",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "v1",
-                "messages"
-              ]
-            }
-          },
-          "status": "Bad Request",
-          "code": 400,
-          "_postman_previewlanguage": null,
-          "header": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "Transfer-Encoding",
-              "value": "chunked"
-            },
-            {
-              "key": "Date",
-              "value": "Sat, 31 Jan 2026 05:18:34 GMT"
-            },
-            {
-              "key": "Connection",
-              "value": "close"
-            }
-          ],
-          "cookie": [],
-          "body": "{\n    \"statusCode\": 400,\n    \"errorMessage\": \"[phoneNumber: phone number must start with +(county code with 2 digits)(phone number with 9 digits), phoneNumber: phoneNumber is required, format: Format is required, content: content cannot be blank]\"\n}"
-        },
-        {
-          "name": "Missing Phone number and Format",
-          "originalRequest": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n   \"phoneNumber\": \"\",\r\n   \"content\": \"contect i am sending message\",\r\n   \"format\": \"\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:8080/v1/messages",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "v1",
-                "messages"
-              ]
-            }
-          },
-          "status": "Bad Request",
-          "code": 400,
-          "_postman_previewlanguage": null,
-          "header": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "Transfer-Encoding",
-              "value": "chunked"
-            },
-            {
-              "key": "Date",
-              "value": "Sat, 31 Jan 2026 05:19:45 GMT"
-            },
-            {
-              "key": "Connection",
-              "value": "close"
-            }
-          ],
-          "cookie": [],
-          "body": "{\n    \"statusCode\": 400,\n    \"errorMessage\": \"[phoneNumber: phoneNumber is required, format: Format is required, phoneNumber: phone number must start with +(county code with 2 digits)(phone number with 9 digits)]\"\n}"
-        },
-        {
           "name": "Missing Phone Number",
           "originalRequest": {
             "method": "POST",
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n   \"phoneNumber\": \"\",\r\n   \"content\": \"contect i am sending message\",\r\n   \"format\": \"SMS\"\r\n}",
+              "raw": "{\r\n   \"phoneNumber\": \"\",\r\n   \"content\": \"contect i am sefdgdsfgunding message\",\r\n   \"format\": \"SMS\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -178,7 +76,7 @@
             },
             {
               "key": "Date",
-              "value": "Sat, 31 Jan 2026 05:20:29 GMT"
+              "value": "Sun, 01 Feb 2026 02:33:46 GMT"
             },
             {
               "key": "Connection",
@@ -186,16 +84,16 @@
             }
           ],
           "cookie": [],
-          "body": "{\n    \"statusCode\": 400,\n    \"errorMessage\": \"[phoneNumber: phone number must start with +(county code with 2 digits)(phone number with 9 digits), phoneNumber: phoneNumber is required]\"\n}"
+          "body": "{\n    \"statusCode\": 400,\n    \"errorMessage\": \"[phoneNumber: phoneNumber is required, phoneNumber: phone number must start with +(country code with 2 digits)(phone number with 9 digits)]\"\n}"
         },
         {
-          "name": "Content Exceeded",
+          "name": "Invalid Phone Number",
           "originalRequest": {
             "method": "POST",
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n   \"phoneNumber\": \"+61461111111\",\r\n   \"content\": \"contect i am sefdgdsfgsfdgfsdgfdgfdghgjhgkhjkhjljklkjlffgjytkylulreteteyrutiyuoiuouirytreyttryuytiyiouioiuooioiryeyrutiyuiyoiyiytuyutiyuoiuoiuoiuiyuiiunding message\",\r\n   \"format\": \"SMS\"\r\n}",
+              "raw": "{\r\n   \"phoneNumber\": \"64461111115\",\r\n   \"content\": \"contect i am sefdgdsfgunding message\",\r\n   \"format\": \"SMS\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -229,7 +127,7 @@
             },
             {
               "key": "Date",
-              "value": "Sat, 31 Jan 2026 05:22:27 GMT"
+              "value": "Sun, 01 Feb 2026 02:34:23 GMT"
             },
             {
               "key": "Connection",
@@ -237,16 +135,118 @@
             }
           ],
           "cookie": [],
-          "body": "{\n    \"statusCode\": 400,\n    \"errorMessage\": \"[content: content cannot exceed 160 characters]\"\n}"
+          "body": "{\n    \"statusCode\": 400,\n    \"errorMessage\": \"[phoneNumber: phone number must start with +(country code with 2 digits)(phone number with 9 digits)]\"\n}"
         },
         {
-          "name": "Success Response",
+          "name": "Invalid Content",
           "originalRequest": {
             "method": "POST",
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n   \"phoneNumber\": \"+61461111111\",\r\n   \"content\": \"contect i am sefdgdsfgunding message\",\r\n   \"format\": \"SMS\"\r\n}",
+              "raw": "{\r\n   \"phoneNumber\": \"+64461111115\",\r\n   \"content\": \"\",\r\n   \"format\": \"SMS\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/v1/messages",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "v1",
+                "messages"
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 01 Feb 2026 02:36:14 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"statusCode\": 400,\n    \"errorMessage\": \"[content: content cannot be blank]\"\n}"
+        },
+        {
+          "name": "Invalid Format",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n   \"phoneNumber\": \"+64461111115\",\r\n   \"content\": \"Hello World, this is an assignment\",\r\n   \"format\": \"\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/v1/messages",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "v1",
+                "messages"
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 01 Feb 2026 02:37:18 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"statusCode\": 400,\n    \"errorMessage\": \"[format: Format is required]\"\n}"
+        },
+        {
+          "name": "Success Message",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n   \"phoneNumber\": \"+62461111115\",\r\n   \"content\": \"Hello World, this is an assignment\",\r\n   \"format\": \"SMS\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -280,7 +280,7 @@
             },
             {
               "key": "Date",
-              "value": "Sat, 31 Jan 2026 05:23:17 GMT"
+              "value": "Sun, 01 Feb 2026 02:37:53 GMT"
             },
             {
               "key": "Keep-Alive",
@@ -292,7 +292,62 @@
             }
           ],
           "cookie": [],
-          "body": "{\n    \"id\": \"711de4d7-73e1-4124-981f-d78a2c841a1c\",\n    \"status\": \"PENDING\"\n}"
+          "body": "{\n    \"id\": \"8da48c34-293f-47ce-b462-f16e5be273c1\",\n    \"status\": \"PENDING\"\n}"
+        },
+        {
+          "name": "Blocked Message",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n   \"phoneNumber\": \"+64461111115\",\r\n   \"content\": \"Hello World, this is an assignment\",\r\n   \"format\": \"SMS\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/v1/messages",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "v1",
+                "messages"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 01 Feb 2026 02:38:13 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": \"ef6e9a14-b541-4d6c-afac-a607a0b43e89\",\n    \"status\": \"BLOCKED\"\n}"
         }
       ]
     },
@@ -316,7 +371,7 @@
       },
       "response": [
         {
-          "name": "GET All Messages",
+          "name": "Get All Messages",
           "originalRequest": {
             "method": "GET",
             "header": [],
@@ -347,7 +402,7 @@
             },
             {
               "key": "Date",
-              "value": "Sat, 31 Jan 2026 05:30:09 GMT"
+              "value": "Sun, 01 Feb 2026 02:43:24 GMT"
             },
             {
               "key": "Keep-Alive",
@@ -359,7 +414,7 @@
             }
           ],
           "cookie": [],
-          "body": "[\n    {\n        \"carrierName\": \"OPTUS\",\n        \"id\": \"3b80efd9-6323-4509-af78-1fc86ff0f890\",\n        \"status\": \"PENDING\"\n    },\n    {\n        \"carrierName\": \"TELSTRA\",\n        \"id\": \"28f6903c-6e5d-4df7-9f01-d86b702b627c\",\n        \"status\": \"PENDING\"\n    },\n    {\n        \"carrierName\": \"TELSTRA\",\n        \"id\": \"01852a96-e1dd-4d42-886a-7480905f3ba9\",\n        \"status\": \"PENDING\"\n    },\n    {\n        \"carrierName\": \"OPTUS\",\n        \"id\": \"d1cc07d8-57c3-4868-889d-1b38101b99ee\",\n        \"status\": \"PENDING\"\n    }\n]"
+          "body": "[\n    {\n        \"carrierName\": \"GLOBAL\",\n        \"id\": \"2d282042-b45a-452c-8008-a12bfad4de95\",\n        \"status\": \"SENT\"\n    },\n    {\n        \"carrierName\": \"SPARK\",\n        \"id\": \"8424358d-c90b-4b54-8807-db85b5bbea9d\",\n        \"status\": \"BLOCKED\"\n    },\n    {\n        \"carrierName\": \"GLOBAL\",\n        \"id\": \"8da48c34-293f-47ce-b462-f16e5be273c1\",\n        \"status\": \"SENT\"\n    },\n    {\n        \"carrierName\": \"TELSTRA\",\n        \"id\": \"d789b01f-76ef-45c4-a306-fabb1c8fc958\",\n        \"status\": \"DELIVERED\"\n    },\n    {\n        \"carrierName\": \"SPARK\",\n        \"id\": \"2e4024eb-eb9d-4fd2-b89a-4388476ed0bc\",\n        \"status\": \"BLOCKED\"\n    },\n    {\n        \"carrierName\": \"GLOBAL\",\n        \"id\": \"7bf9f54e-3d26-4c07-afe9-709874cb2138\",\n        \"status\": \"DELIVERED\"\n    },\n    {\n        \"carrierName\": \"OPTUS\",\n        \"id\": \"6229b0e0-0847-4bef-bb02-b6a6707e9412\",\n        \"status\": \"DELIVERED\"\n    },\n    {\n        \"carrierName\": \"GLOBAL\",\n        \"id\": \"48da0f50-82ee-4713-a8c3-b70208bd8540\",\n        \"status\": \"DELIVERED\"\n    },\n    {\n        \"carrierName\": \"GLOBAL\",\n        \"id\": \"81fc25a3-62af-4667-8202-b7b30b5e745f\",\n        \"status\": \"SENT\"\n    },\n    {\n        \"carrierName\": \"SPARK\",\n        \"id\": \"f3e3bd28-883d-4034-91f2-49c5fa3bd255\",\n        \"status\": \"BLOCKED\"\n    },\n    {\n        \"carrierName\": \"SPARK\",\n        \"id\": \"ef6e9a14-b541-4d6c-afac-a607a0b43e89\",\n        \"status\": \"BLOCKED\"\n    },\n    {\n        \"carrierName\": \"GLOBAL\",\n        \"id\": \"6fa5105e-838e-4da0-99c5-e5d003aae703\",\n        \"status\": \"SENT\"\n    },\n    {\n        \"carrierName\": \"SPARK\",\n        \"id\": \"1971f45f-5127-433d-a594-f86faf2b4daf\",\n        \"status\": \"BLOCKED\"\n    },\n    {\n        \"carrierName\": \"SPARK\",\n        \"id\": \"cd9e1250-9b5d-429e-bbe2-80f23c3414a8\",\n        \"status\": \"BLOCKED\"\n    }\n]"
         }
       ]
     },
@@ -369,7 +424,7 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:8080/v1/messages/ab7bec5a-0f6f-49cb-8e6d-52d2b2b72b2b",
+          "raw": "http://localhost:8080/v1/messages/6fa5105e-838e-4da0-99c5-e5d003aae703",
           "protocol": "http",
           "host": [
             "localhost"
@@ -378,107 +433,13 @@
           "path": [
             "v1",
             "messages",
-            "ab7bec5a-0f6f-49cb-8e6d-52d2b2b72b2b"
+            "6fa5105e-838e-4da0-99c5-e5d003aae703"
           ]
         }
       },
       "response": [
         {
-          "name": "Messge Not found",
-          "originalRequest": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:8080/v1/messages/c79a27a2-9446-4f80-bb7e-e4b0feb38476",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "v1",
-                "messages",
-                "c79a27a2-9446-4f80-bb7e-e4b0feb38476"
-              ]
-            }
-          },
-          "status": "Not Found",
-          "code": 404,
-          "_postman_previewlanguage": null,
-          "header": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "Transfer-Encoding",
-              "value": "chunked"
-            },
-            {
-              "key": "Date",
-              "value": "Sat, 31 Jan 2026 05:24:02 GMT"
-            },
-            {
-              "key": "Keep-Alive",
-              "value": "timeout=60"
-            },
-            {
-              "key": "Connection",
-              "value": "keep-alive"
-            }
-          ],
-          "cookie": [],
-          "body": "{\n    \"statusCode\": 404,\n    \"errorMessage\": \"Message not found for id: c79a27a2-9446-4f80-bb7e-e4b0feb38476\"\n}"
-        },
-        {
-          "name": "Success Message Found",
-          "originalRequest": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:8080/v1/messages/711de4d7-73e1-4124-981f-d78a2c841a1c",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "v1",
-                "messages",
-                "711de4d7-73e1-4124-981f-d78a2c841a1c"
-              ]
-            }
-          },
-          "status": "OK",
-          "code": 200,
-          "_postman_previewlanguage": null,
-          "header": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "Transfer-Encoding",
-              "value": "chunked"
-            },
-            {
-              "key": "Date",
-              "value": "Sat, 31 Jan 2026 05:24:38 GMT"
-            },
-            {
-              "key": "Keep-Alive",
-              "value": "timeout=60"
-            },
-            {
-              "key": "Connection",
-              "value": "keep-alive"
-            }
-          ],
-          "cookie": [],
-          "body": "{\n    \"id\": \"711de4d7-73e1-4124-981f-d78a2c841a1c\",\n    \"status\": \"PENDING\"\n}"
-        },
-        {
-          "name": "Error ID null",
+          "name": "Invalid Id",
           "originalRequest": {
             "method": "GET",
             "header": [],
@@ -496,8 +457,8 @@
               ]
             }
           },
-          "status": "Not Found",
-          "code": 404,
+          "status": "Bad Request",
+          "code": 400,
           "_postman_previewlanguage": null,
           "header": [
             {
@@ -510,7 +471,50 @@
             },
             {
               "key": "Date",
-              "value": "Sat, 31 Jan 2026 06:11:15 GMT"
+              "value": "Sun, 01 Feb 2026 02:39:18 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"statusCode\": 400,\n    \"errorMessage\": \"id cannot be null or empty\"\n}"
+        },
+        {
+          "name": "Sent Messages",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/v1/messages/81fc25a3-62af-4667-8202-b7b30b5e745f",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "v1",
+                "messages",
+                "81fc25a3-62af-4667-8202-b7b30b5e745f"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 01 Feb 2026 02:40:18 GMT"
             },
             {
               "key": "Keep-Alive",
@@ -522,7 +526,54 @@
             }
           ],
           "cookie": [],
-          "body": "{\n    \"statusCode\": 400,\n    \"errorMessage\": \"id cannot be null\"\n}"
+          "body": "{\n    \"id\": \"81fc25a3-62af-4667-8202-b7b30b5e745f\",\n    \"status\": \"SENT\"\n}"
+        },
+        {
+          "name": "Pending Message",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/v1/messages/6fa5105e-838e-4da0-99c5-e5d003aae703",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "v1",
+                "messages",
+                "6fa5105e-838e-4da0-99c5-e5d003aae703"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 01 Feb 2026 02:41:29 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": \"6fa5105e-838e-4da0-99c5-e5d003aae703\",\n    \"status\": \"PENDING\"\n}"
         }
       ]
     },
@@ -532,7 +583,7 @@
         "method": "POST",
         "header": [],
         "url": {
-          "raw": "http://localhost:8080/v1/optout/+64461111156",
+          "raw": "http://localhost:8080/v1/optout/+63461111115",
           "protocol": "http",
           "host": [
             "localhost"
@@ -541,18 +592,18 @@
           "path": [
             "v1",
             "optout",
-            "+64461111156"
+            "+63461111115"
           ]
         }
       },
       "response": [
         {
-          "name": "Error PhoneNumber null",
+          "name": "OptOuted Phone Number",
           "originalRequest": {
             "method": "POST",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/v1/optout/ ",
+              "raw": "http://localhost:8080/v1/optout/+63461111115",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -561,101 +612,7 @@
               "path": [
                 "v1",
                 "optout",
-                " "
-              ]
-            }
-          },
-          "status": "Not Found",
-          "code": 404,
-          "_postman_previewlanguage": null,
-          "header": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "Transfer-Encoding",
-              "value": "chunked"
-            },
-            {
-              "key": "Date",
-              "value": "Sat, 31 Jan 2026 06:12:24 GMT"
-            },
-            {
-              "key": "Keep-Alive",
-              "value": "timeout=60"
-            },
-            {
-              "key": "Connection",
-              "value": "keep-alive"
-            }
-          ],
-          "cookie": [],
-          "body": "{\n    \"statusCode\": 400,\n    \"errorMessage\": \"phoneNumber cannot be null\"\n}"
-        },
-        {
-          "name": "Error Invalid Phone Number",
-          "originalRequest": {
-            "method": "POST",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:8080/v1/optout/234324",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "v1",
-                "optout",
-                "234324"
-              ]
-            }
-          },
-          "status": "Not Found",
-          "code": 404,
-          "_postman_previewlanguage": null,
-          "header": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "Transfer-Encoding",
-              "value": "chunked"
-            },
-            {
-              "key": "Date",
-              "value": "Sat, 31 Jan 2026 06:12:55 GMT"
-            },
-            {
-              "key": "Keep-Alive",
-              "value": "timeout=60"
-            },
-            {
-              "key": "Connection",
-              "value": "keep-alive"
-            }
-          ],
-          "cookie": [],
-          "body": "{\n    \"statusCode\": 400,\n    \"errorMessage\": \"phone number must start with +(country code with 2 digits)(phone number with 9 digits)\"\n}"
-        },
-        {
-          "name": "Success Opted Out",
-          "originalRequest": {
-            "method": "POST",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:8080/v1/optout/+61411111111",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "v1",
-                "optout",
-                "+61411111111"
+                "+63461111115"
               ]
             }
           },
@@ -673,7 +630,7 @@
             },
             {
               "key": "Date",
-              "value": "Sat, 31 Jan 2026 06:13:31 GMT"
+              "value": "Sun, 01 Feb 2026 02:42:41 GMT"
             },
             {
               "key": "Keep-Alive",
@@ -686,53 +643,6 @@
           ],
           "cookie": [],
           "body": "{\n    \"status\": \"OPTED_OUT\"\n}"
-        },
-        {
-          "name": "Success Already Opted Out",
-          "originalRequest": {
-            "method": "POST",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:8080/v1/optout/+61411111111",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "v1",
-                "optout",
-                "+61411111111"
-              ]
-            }
-          },
-          "status": "Created",
-          "code": 201,
-          "_postman_previewlanguage": null,
-          "header": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "Transfer-Encoding",
-              "value": "chunked"
-            },
-            {
-              "key": "Date",
-              "value": "Sat, 31 Jan 2026 06:14:02 GMT"
-            },
-            {
-              "key": "Keep-Alive",
-              "value": "timeout=60"
-            },
-            {
-              "key": "Connection",
-              "value": "keep-alive"
-            }
-          ],
-          "cookie": [],
-          "body": "{\n    \"status\": \"ALREADY_OPTED_OUT\"\n}"
         }
       ]
     }

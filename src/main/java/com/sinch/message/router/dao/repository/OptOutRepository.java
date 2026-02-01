@@ -11,12 +11,8 @@ public class OptOutRepository {
     private final Set<String> phoneNumberSet = new HashSet<>();
 
     public boolean optOut(String phoneNumber) {
-        if (isOptOut(phoneNumber)) {       // already Opted Out
-            return false;
-        } else {
-            phoneNumberSet.add(phoneNumber);   // newly Opted Out
-            return true;
-        }
+        phoneNumberSet.add(phoneNumber);
+        return true;
     }
 
     public boolean isOptOut(String phoneNumber) {

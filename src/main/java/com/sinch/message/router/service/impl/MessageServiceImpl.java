@@ -3,10 +3,12 @@ package com.sinch.message.router.service.impl;
 import com.sinch.message.router.dao.entity.MessageEntity;
 import com.sinch.message.router.dao.repository.MessageRepository;
 import com.sinch.message.router.dao.repository.OptOutRepository;
+import com.sinch.message.router.enums.OptOutEnum;
 import com.sinch.message.router.enums.StatusEnum;
 import com.sinch.message.router.exceptions.ResourceNotFoundException;
 import com.sinch.message.router.models.MessageRequest;
 import com.sinch.message.router.models.MessageResponse;
+import com.sinch.message.router.models.OptOutResponse;
 import com.sinch.message.router.service.IMessageService;
 import com.sinch.message.router.utils.MessageMappingUtil;
 import lombok.AllArgsConstructor;
@@ -52,12 +54,11 @@ public class MessageServiceImpl implements IMessageService {
     }
 
     @Override
-    public MessageResponse optOut(final String phoneNumber) {
-        if (optOutRepository.optOut(phoneNumber)) {
-            return new MessageResponse(StatusEnum.OPTED_OUT);
-        } else {
-            return new MessageResponse(StatusEnum.ALREADY_OPTED_OUT);
-        }
+    public OptOutResponse optOut(final String phoneNumber) {
+        if (optOutRepository.optOut(phoneNumber))
+            return new OptOutResponse(OptOutEnum.OPTED_OUT);
+        else
+            throw new RuntimeException("Something went wrong while on opting out phone number");
     }
 
     @Override

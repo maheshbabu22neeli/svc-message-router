@@ -4,10 +4,12 @@ import com.sinch.message.router.dao.entity.MessageEntity;
 import com.sinch.message.router.dao.repository.MessageRepository;
 import com.sinch.message.router.dao.repository.OptOutRepository;
 import com.sinch.message.router.enums.CarrierEnum;
+import com.sinch.message.router.enums.OptOutEnum;
 import com.sinch.message.router.enums.StatusEnum;
 import com.sinch.message.router.exceptions.ResourceNotFoundException;
 import com.sinch.message.router.models.MessageRequest;
 import com.sinch.message.router.models.MessageResponse;
+import com.sinch.message.router.models.OptOutResponse;
 import com.sinch.message.router.utils.MessageMappingUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -149,22 +151,10 @@ public class MessageServiceImplTest {
 
         when(optOutRepository.optOut(phoneNumber)).thenReturn(true);
 
-        MessageResponse messageResult = messageService.optOut(phoneNumber);
+        OptOutResponse optOutResponse = messageService.optOut(phoneNumber);
 
-        assertNotNull(messageResult);
-        assertEquals(StatusEnum.OPTED_OUT, messageResult.getStatus());
-    }
-
-    @Test
-    void test_optOut_return_Already_Opted_out() {
-        String phoneNumber = "+61411111112";
-
-        when(optOutRepository.optOut(phoneNumber)).thenReturn(false);
-
-        MessageResponse messageResult = messageService.optOut(phoneNumber);
-
-        assertNotNull(messageResult);
-        assertEquals(StatusEnum.ALREADY_OPTED_OUT, messageResult.getStatus());
+        assertNotNull(optOutResponse);
+        assertEquals(OptOutEnum.OPTED_OUT, optOutResponse.getStatus());
     }
 
 }

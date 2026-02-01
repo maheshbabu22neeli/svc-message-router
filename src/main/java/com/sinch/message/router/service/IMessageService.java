@@ -2,6 +2,7 @@ package com.sinch.message.router.service;
 
 import com.sinch.message.router.models.MessageRequest;
 import com.sinch.message.router.models.MessageResponse;
+import com.sinch.message.router.models.OptOutResponse;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ public interface IMessageService {
 
     MessageResponse getMessage(final String id);
 
-    MessageResponse optOut(final String phoneNumber);
+    OptOutResponse optOut(final String phoneNumber);
 
     List<MessageResponse> getAllMessages();
 

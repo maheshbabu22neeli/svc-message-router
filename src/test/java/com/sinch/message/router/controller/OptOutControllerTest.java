@@ -1,7 +1,7 @@
 package com.sinch.message.router.controller;
 
-import com.sinch.message.router.enums.StatusEnum;
-import com.sinch.message.router.models.MessageResponse;
+import com.sinch.message.router.enums.OptOutEnum;
+import com.sinch.message.router.models.OptOutResponse;
 import com.sinch.message.router.service.IMessageService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -81,27 +81,14 @@ public class OptOutControllerTest {
     @Test
     void test_optOut_success_response() throws Exception {
 
-        MessageResponse messageResponse =
-                new MessageResponse(StatusEnum.OPTED_OUT);
+        OptOutResponse optOutResponse =
+                new OptOutResponse(OptOutEnum.OPTED_OUT);
 
-        when(messageService.optOut(any())).thenReturn(messageResponse);
-
-        mockMvc.perform(post("/v1/optout/{phoneNumber}", "+61411111112"))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.status").value(StatusEnum.OPTED_OUT.toString()));
-    }
-
-    @Test
-    void test_optOut_success_response_when_already_opted_out() throws Exception {
-
-        MessageResponse messageResponse =
-                new MessageResponse(StatusEnum.ALREADY_OPTED_OUT);
-
-        when(messageService.optOut(any())).thenReturn(messageResponse);
+        when(messageService.optOut(any())).thenReturn(optOutResponse);
 
         mockMvc.perform(post("/v1/optout/{phoneNumber}", "+61411111112"))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.status").value(StatusEnum.ALREADY_OPTED_OUT.toString()));
+                .andExpect(jsonPath("$.status").value(OptOutEnum.OPTED_OUT.toString()));
     }
 
 }

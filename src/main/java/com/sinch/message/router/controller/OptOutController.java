@@ -2,7 +2,7 @@ package com.sinch.message.router.controller;
 
 import ch.qos.logback.core.util.StringUtil;
 import com.sinch.message.router.exceptions.ValidationException;
-import com.sinch.message.router.models.MessageResponse;
+import com.sinch.message.router.models.OptOutResponse;
 import com.sinch.message.router.service.IMessageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,17 +29,17 @@ public class OptOutController {
     private final IMessageService messageService;
 
     @PostMapping("/optout/{phoneNumber}")
-    public ResponseEntity<MessageResponse> optOut(@PathVariable String phoneNumber) {
+    public ResponseEntity<OptOutResponse> optOut(@PathVariable String phoneNumber) {
         log.info("Request received to optOut a phone number: {}", phoneNumber);
 
         validatePhoneNumber(phoneNumber);
 
-        MessageResponse messageResponse = messageService.optOut(phoneNumber);
+        OptOutResponse optOutResponse = messageService.optOut(phoneNumber);
 
-        log.info("Response sent for optOut a phone number: {}", objectMapper.writeValueAsString(messageResponse));
+        log.info("Response sent for optOut a phone number: {}", objectMapper.writeValueAsString(optOutResponse));
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(messageResponse);
+                .body(optOutResponse);
     }
 
     private void validatePhoneNumber(final String phoneNumber) {

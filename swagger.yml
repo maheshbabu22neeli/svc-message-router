@@ -1,63 +1,41 @@
 openapi: 3.0.3
 info:
   title: svc-message-routing
+  description: Sinch Messaging Router Service API
   version: 1.0.0
-  description: SMS routing service with message sending and opt-out management
+
 servers:
-  - url: http://localhost:8080/v1
+  - url: http://localhost:8080
+    description: Local server
+
 paths:
-  /messages:
+  /v1/messages:
     post:
-      summary: Send an SMS message
+      summary: Send a message
+      operationId: sendMessage
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              type: object
-              required:
-                - phoneNumber
-                - content
-                - format
-              properties:
-                phoneNumber:
-                  type: string
-                  example: "+61461111111"
-                  description: Must start with + and contain exactly 11 digits
-                content:
-                  type: string
-                  example: "Hello world"
-                  description: Message content, max 160 characters
-                format:
-                  type: string
-                  example: "SMS"
+              $ref: '#/components/schemas/MessageRequest'
       responses:
         '201':
           description: Message created
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  id:
-                    type: string
-                    format: uuid
-                  status:
-                    type: string
-                    enum: [PENDING, SENT, DELIVERED, BLOCKED]
+                $ref: '#/components/schemas/MessageResponse'
         '400':
           description: Validation error
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  statusCode:
-                    type: integer
-                  errorMessage:
-                    type: string
+                $ref: '#/components/schemas/ErrorResponse'
+
     get:
-      summary: Retrieve all messages
+      summary: Get all messages
+      operationId: getAllMessages
       responses:
         '200':
           description: List of messages
@@ -66,84 +44,108 @@ paths:
               schema:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      format: uuid
-                    carrierName:
-                      type: string
-                      enum: [ TELSTRA, OPTUS, SPARK, GLOBAL ]
-                    status:
-                      type: string
-                      enum: [ PENDING, SENT, DELIVERED, BLOCKED ]
+                  $ref: '#/components/schemas/MessageResponseWithCarrier'
 
-  /messages/{id}:
+  /v1/messages/{id}:
     get:
-      summary: Retrieve a message by ID
+      summary: Get message by ID
+      operationId: getMessageById
       parameters:
         - name: id
           in: path
           required: true
           schema:
             type: string
-            format: uuid
       responses:
         '200':
           description: Message found
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  id:
-                    type: string
-                    format: uuid
-                  status:
-                    type: string
-                    enum: [PENDING, SENT, DELIVERED, BLOCKED]
-        '404':
-          description: Message not found
+                $ref: '#/components/schemas/MessageResponse'
+        '400':
+          description: Invalid ID
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  statusCode:
-                    type: integer
-                  errorMessage:
-                    type: string
-  /optout/{phoneNumber}:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Message not found
+
+  /v1/optout/{phoneNumber}:
     post:
       summary: Opt-out a phone number
+      operationId: optOutPhoneNumber
       parameters:
         - name: phoneNumber
           in: path
           required: true
           schema:
             type: string
-            #pattern: "^\+\d{11}$"
-            example: "+61411111111"
-            description: Phone number must start with + and contain 11 digits
       responses:
         '201':
-          description: Opt-out successful
+          description: Phone number opted out
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    enum: [OPTED_OUT, ALREADY_OPTED_OUT]
-        '400':
-          description: Invalid phone number
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  statusCode:
-                    type: integer
-                  errorMessage:
-                    type: string
+                $ref: '#/components/schemas/OptOutResponse'
+
+components:
+  schemas:
+    MessageRequest:
+      type: object
+      required:
+        - phoneNumber
+        - content
+        - format
+      properties:
+        phoneNumber:
+          type: string
+          example: "+61412345678"
+        content:
+          type: string
+          example: "Hello World, this is an assignment"
+        format:
+          type: string
+          example: "SMS"
+
+    MessageResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "8da48c34-293f-47ce-b462-f16e5be273c1"
+        status:
+          type: string
+          example: "PENDING"
+
+    MessageResponseWithCarrier:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          example: "DELIVERED"
+        carrierName:
+          type: string
+          example: "TELSTRA"
+
+    OptOutResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "OPTED_OUT"
+
+    ErrorResponse:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          example: 400
+        errorMessage:
+          type: string
+          example: "phoneNumber is required"
