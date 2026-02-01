@@ -60,7 +60,7 @@ Routing logic for AU (+61) numbers alternates between **Telstra** and **Optus**.
 | GET    | `/messages`             | Get all messages                       | N/A | List of `MessageResponse` |
 | POST   | `/optout/{phonenumber}` | OptOut messages for given phone number | Path param: `phonenumber` | `MessageResponse` |
 
-**Postman collection found at `svc-message-router` folder**
+#### Postman collection available at `svc-message-router` folder
 
 ![img_1.png](images/postman.png)
 
@@ -74,7 +74,7 @@ Routing logic for AU (+61) numbers alternates between **Telstra** and **Optus**.
 ---
 
 ## Swagger Specification
-#### swagger.yml found at svc-message-router folder
+#### swagger.yml available at svc-message-router folder
 ![img.png](images/swagger.png)
 
 ---
@@ -108,7 +108,7 @@ mvn spring-boot:run
 ```
 
 ### Request API and Payloads
-- `POST` Message
+#### `POST` Messages
 ```curl
 curl --location 'http://localhost:8080/v1/messages' \
         --header 'Content-Type: application/json' \
@@ -119,17 +119,17 @@ curl --location 'http://localhost:8080/v1/messages' \
         }'
 ```
 
-- `GET` Message By Id
+#### `GET` Message By Id
 ```curl
 curl --location 'http://localhost:8080/v1/messages/77749bc2-3e30-43cf-b90c-f3e7856df9c3'
 ```
 
-- `POST` OptOut Phone number
+#### `POST` OptOut Phone number
 ```curl
 curl --location --request POST 'http://localhost:8080/v1/optout/+61461111545'
 ```
 
-- `GET` All Message
+#### `GET` All Messages
 ```curl
 curl --location 'http://localhost:8080/v1/messages'
 ```
