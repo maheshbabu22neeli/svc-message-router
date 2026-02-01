@@ -82,7 +82,7 @@ Routing logic for AU (+61) numbers alternates between **Telstra** and **Optus**.
 - `MessageStatusUpdateScheduler` is a scheduler which runs every 3 minutes at the background to update the **PENDING** messages to either **SENT** or **DELIVERED**
 - Replicating real-world scenario that our application is receiving notification after message sent
 - Configuration can found in application.yml file 
-```azure
+```config
 message:
   scheduler:
     fixed-rate-ms: 180000   # 3 minutes in milliseconds (3 * 60 * 1000)
@@ -109,7 +109,7 @@ mvn spring-boot:run
 
 ### Request API and Payloads
 - `POST` Message
-```java
+```curl
 curl --location 'http://localhost:8080/v1/messages' \
         --header 'Content-Type: application/json' \
         --data '{
@@ -120,16 +120,16 @@ curl --location 'http://localhost:8080/v1/messages' \
 ```
 
 - `GET` Message By Id
-```java
+```curl
 curl --location 'http://localhost:8080/v1/messages/77749bc2-3e30-43cf-b90c-f3e7856df9c3'
 ```
 
 - `POST` OptOut Phone number
-```java
+```curl
 curl --location --request POST 'http://localhost:8080/v1/optout/+61461111545'
 ```
 
 - `GET` All Message
-```java
+```curl
 curl --location 'http://localhost:8080/v1/messages'
 ```
