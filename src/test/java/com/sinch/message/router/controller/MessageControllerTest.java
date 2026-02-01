@@ -1,5 +1,6 @@
 package com.sinch.message.router.controller;
 
+import com.sinch.message.router.dao.repository.OptOutRepository;
 import com.sinch.message.router.enums.MessageStatusEnum;
 import com.sinch.message.router.models.MessageRequest;
 import com.sinch.message.router.models.MessageResponse;
@@ -12,6 +13,7 @@ import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import tools.jackson.databind.ObjectMapper;
 
 import java.util.UUID;
@@ -30,6 +32,9 @@ public class MessageControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private OptOutRepository optOutRepository;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -171,6 +176,39 @@ public class MessageControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(messageResponse.getId()))
                 .andExpect(jsonPath("$.status").value(MessageStatusEnum.DELIVERED.toString()));
+    }
+
+    @Test
+    void test_sendMessage_toOptedOutNumber_shouldBeBlocked() throws Exception {
+
+        String phoneNumber = "+61412345678";
+        optOutRepository.optOut(phoneNumber);
+
+        MessageRequest request = new MessageRequest();
+        request.setPhoneNumber(phoneNumber);
+        request.setContent("Hello World");
+        request.setFormat("SMS");
+
+        MessageResponse sendMessageResponse = new MessageResponse(UUID.randomUUID().toString(), MessageStatusEnum.BLOCKED);
+
+        when(messageService.sendMessage(any())).thenReturn(sendMessageResponse);
+
+        MvcResult sendResult = mockMvc.perform(post("/v1/messages")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.status").value(MessageStatusEnum.BLOCKED.toString()))
+                .andReturn();
+
+        String sendMessageResponseBody = sendResult.getResponse().getContentAsString();
+        MessageResponse getMessageResponse =
+                objectMapper.readValue(sendMessageResponseBody, MessageResponse.class);
+
+        when(messageService.getMessage(getMessageResponse.getId())).thenReturn(getMessageResponse);
+
+        mockMvc.perform(get("/v1/messages/{id}", getMessageResponse.getId()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(MessageStatusEnum.BLOCKED.toString()));
     }
 
 }
