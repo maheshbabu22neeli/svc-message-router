@@ -1,12 +1,10 @@
 package com.sinch.message.router.controller;
 
-import ch.qos.logback.core.util.StringUtil;
 import com.sinch.message.router.exceptions.ValidationException;
 import com.sinch.message.router.models.MessageRequest;
 import com.sinch.message.router.models.MessageResponse;
 import com.sinch.message.router.service.IMessageService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
