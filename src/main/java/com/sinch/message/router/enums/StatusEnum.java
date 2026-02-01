@@ -8,8 +8,6 @@ public enum StatusEnum {
     PENDING,
     SENT,
     DELIVERED,
-    BLOCKED,
-    OPTED_OUT,
-    ALREADY_OPTED_OUT;
+    BLOCKED;
 
 }
