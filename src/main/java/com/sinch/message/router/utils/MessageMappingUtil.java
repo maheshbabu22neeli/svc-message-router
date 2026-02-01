@@ -1,7 +1,7 @@
 package com.sinch.message.router.utils;
 
 import com.sinch.message.router.dao.entity.MessageEntity;
-import com.sinch.message.router.enums.MessageStatusEnum;
+import com.sinch.message.router.enums.StatusEnum;
 import com.sinch.message.router.models.MessageRequest;
 import com.sinch.message.router.models.MessageResponse;
 import com.sinch.message.router.service.IRoutingService;
@@ -19,12 +19,12 @@ public class MessageMappingUtil {
     private final IRoutingService iRoutingService;
 
     public MessageEntity mapMessageRequestToMessageEntity(MessageRequest messageRequest,
-                                                          MessageStatusEnum messageStatusEnum) {
+                                                          StatusEnum statusEnum) {
         return new MessageEntity(messageRequest.getPhoneNumber(),
                 messageRequest.getContent(),
                 messageRequest.getFormat(),
                 iRoutingService.getCarrierEnumByPhoneNumber(messageRequest.getPhoneNumber()),
-                messageStatusEnum);
+                statusEnum);
     }
 
     public MessageResponse mapMessageEntityToMessageResponse(MessageEntity messageEntity) {

@@ -1,7 +1,7 @@
 package com.sinch.message.router.dao.repository;
 
 import com.sinch.message.router.dao.entity.MessageEntity;
-import com.sinch.message.router.enums.MessageStatusEnum;
+import com.sinch.message.router.enums.StatusEnum;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,10 +27,10 @@ public class MessageRepository {
         return List.copyOf(messageEntityMap.values());
     }
 
-    public List<MessageEntity> findAllByStatus(MessageStatusEnum messageStatusEnum) {
+    public List<MessageEntity> findAllByStatus(StatusEnum statusEnum) {
         return  messageEntityMap.values()
                         .stream()
-                        .filter(m -> m.getStatus() == messageStatusEnum)
+                        .filter(m -> m.getStatus() == statusEnum)
                         .toList();
     }
 

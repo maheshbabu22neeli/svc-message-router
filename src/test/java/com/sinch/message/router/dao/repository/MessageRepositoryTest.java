@@ -2,7 +2,7 @@ package com.sinch.message.router.dao.repository;
 
 import com.sinch.message.router.dao.entity.MessageEntity;
 import com.sinch.message.router.enums.CarrierEnum;
-import com.sinch.message.router.enums.MessageStatusEnum;
+import com.sinch.message.router.enums.StatusEnum;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +23,7 @@ public class MessageRepositoryTest {
     @Test
     void test_save_shouldStore_And_ReturnMessage() {
 
-        MessageEntity messageEntity = getMessageEntity(CarrierEnum.OPTUS, MessageStatusEnum.PENDING);
+        MessageEntity messageEntity = getMessageEntity(CarrierEnum.OPTUS, StatusEnum.PENDING);
         MessageEntity savedMessageEntity = repository.save(messageEntity);
 
         assertEquals(messageEntity, savedMessageEntity);
@@ -39,9 +39,9 @@ public class MessageRepositoryTest {
     @Test
     void test_findAll_shouldReturn_All_SavedMessages() {
 
-        repository.save(getMessageEntity(CarrierEnum.TELSTRA, MessageStatusEnum.DELIVERED));
-        repository.save(getMessageEntity(CarrierEnum.SPARK, MessageStatusEnum.BLOCKED));
-        repository.save(getMessageEntity(CarrierEnum.OPTUS, MessageStatusEnum.SENT));
+        repository.save(getMessageEntity(CarrierEnum.TELSTRA, StatusEnum.DELIVERED));
+        repository.save(getMessageEntity(CarrierEnum.SPARK, StatusEnum.BLOCKED));
+        repository.save(getMessageEntity(CarrierEnum.OPTUS, StatusEnum.SENT));
 
         List<MessageEntity> messageEntityList = repository.findAll();
 
@@ -51,19 +51,19 @@ public class MessageRepositoryTest {
     @Test
     void test_findByStatus_return_saved_message() {
 
-        repository.save(getMessageEntity(CarrierEnum.TELSTRA, MessageStatusEnum.DELIVERED));
-        repository.save(getMessageEntity(CarrierEnum.OPTUS, MessageStatusEnum.DELIVERED));
-        repository.save(getMessageEntity(CarrierEnum.SPARK, MessageStatusEnum.BLOCKED));
-        repository.save(getMessageEntity(CarrierEnum.SPARK, MessageStatusEnum.DELIVERED));
-        repository.save(getMessageEntity(CarrierEnum.OPTUS, MessageStatusEnum.SENT));
-        repository.save(getMessageEntity(CarrierEnum.OPTUS, MessageStatusEnum.DELIVERED));
+        repository.save(getMessageEntity(CarrierEnum.TELSTRA, StatusEnum.DELIVERED));
+        repository.save(getMessageEntity(CarrierEnum.OPTUS, StatusEnum.DELIVERED));
+        repository.save(getMessageEntity(CarrierEnum.SPARK, StatusEnum.BLOCKED));
+        repository.save(getMessageEntity(CarrierEnum.SPARK, StatusEnum.DELIVERED));
+        repository.save(getMessageEntity(CarrierEnum.OPTUS, StatusEnum.SENT));
+        repository.save(getMessageEntity(CarrierEnum.OPTUS, StatusEnum.DELIVERED));
 
-        List<MessageEntity> messageEntityList = repository.findAllByStatus(MessageStatusEnum.DELIVERED);
+        List<MessageEntity> messageEntityList = repository.findAllByStatus(StatusEnum.DELIVERED);
 
         assertEquals(4, messageEntityList.size());
     }
 
-    private MessageEntity getMessageEntity(CarrierEnum carrierName, MessageStatusEnum status) {
+    private MessageEntity getMessageEntity(CarrierEnum carrierName, StatusEnum status) {
         return new MessageEntity("+61411111112",
                 "Hello World, This is an assignment",
                 "SMS", carrierName, status);

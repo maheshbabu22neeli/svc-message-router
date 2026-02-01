@@ -1,7 +1,7 @@
 package com.sinch.message.router.controller;
 
 import com.sinch.message.router.dao.repository.OptOutRepository;
-import com.sinch.message.router.enums.MessageStatusEnum;
+import com.sinch.message.router.enums.StatusEnum;
 import com.sinch.message.router.models.MessageRequest;
 import com.sinch.message.router.models.MessageResponse;
 import com.sinch.message.router.service.IMessageService;
@@ -132,7 +132,7 @@ public class MessageControllerTest {
         messageRequest.setContent("Hello World");
         messageRequest.setFormat("SMS");
 
-        MessageResponse messageResponse = new MessageResponse(UUID.randomUUID().toString(), MessageStatusEnum.PENDING);
+        MessageResponse messageResponse = new MessageResponse(UUID.randomUUID().toString(), StatusEnum.PENDING);
 
         when(messageService.sendMessage(any())).thenReturn(messageResponse);
 
@@ -141,7 +141,7 @@ public class MessageControllerTest {
                         .content(objectMapper.writeValueAsString(messageRequest)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").value(messageResponse.getId()))
-                .andExpect(jsonPath("$.status").value(MessageStatusEnum.PENDING.toString()));
+                .andExpect(jsonPath("$.status").value(StatusEnum.PENDING.toString()));
     }
 
     @Test
@@ -168,14 +168,14 @@ public class MessageControllerTest {
     void test_getMessage_success_response() throws Exception {
 
         MessageResponse messageResponse =
-                new MessageResponse(UUID.randomUUID().toString(), MessageStatusEnum.DELIVERED);
+                new MessageResponse(UUID.randomUUID().toString(), StatusEnum.DELIVERED);
 
         when(messageService.getMessage(any())).thenReturn(messageResponse);
 
         mockMvc.perform(get("/v1/messages/{id}", messageResponse.getId()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(messageResponse.getId()))
-                .andExpect(jsonPath("$.status").value(MessageStatusEnum.DELIVERED.toString()));
+                .andExpect(jsonPath("$.status").value(StatusEnum.DELIVERED.toString()));
     }
 
     @Test
@@ -189,7 +189,7 @@ public class MessageControllerTest {
         request.setContent("Hello World");
         request.setFormat("SMS");
 
-        MessageResponse sendMessageResponse = new MessageResponse(UUID.randomUUID().toString(), MessageStatusEnum.BLOCKED);
+        MessageResponse sendMessageResponse = new MessageResponse(UUID.randomUUID().toString(), StatusEnum.BLOCKED);
 
         when(messageService.sendMessage(any())).thenReturn(sendMessageResponse);
 
@@ -197,7 +197,7 @@ public class MessageControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.status").value(MessageStatusEnum.BLOCKED.toString()))
+                .andExpect(jsonPath("$.status").value(StatusEnum.BLOCKED.toString()))
                 .andReturn();
 
         String sendMessageResponseBody = sendResult.getResponse().getContentAsString();
@@ -208,7 +208,7 @@ public class MessageControllerTest {
 
         mockMvc.perform(get("/v1/messages/{id}", getMessageResponse.getId()))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.status").value(MessageStatusEnum.BLOCKED.toString()));
+                .andExpect(jsonPath("$.status").value(StatusEnum.BLOCKED.toString()));
     }
 
 }

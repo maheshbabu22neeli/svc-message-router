@@ -1,7 +1,7 @@
 package com.sinch.message.router.scheduler;
 
 import com.sinch.message.router.dao.repository.MessageRepository;
-import com.sinch.message.router.enums.MessageStatusEnum;
+import com.sinch.message.router.enums.StatusEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -20,12 +20,12 @@ public class MessageStatusUpdateScheduler {
 
         messageRepository.findAll().forEach(message -> {
             // Only update PENDING messages
-            if (message.getStatus() == MessageStatusEnum.PENDING) {
+            if (message.getStatus() == StatusEnum.PENDING) {
                 long numericId = getNumericValue(message.getId());
                 if (numericId % 2 == 0) {
-                    message.setStatus(MessageStatusEnum.DELIVERED);
+                    message.setStatus(StatusEnum.DELIVERED);
                 } else {
-                    message.setStatus(MessageStatusEnum.SENT);
+                    message.setStatus(StatusEnum.SENT);
                 }
                 log.info("Updated message {} to status {}", message.getId(), message.getStatus());
             }

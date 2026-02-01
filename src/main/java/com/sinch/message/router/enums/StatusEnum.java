@@ -3,7 +3,7 @@ package com.sinch.message.router.enums;
 import lombok.Getter;
 
 @Getter
-public enum MessageStatusEnum {
+public enum StatusEnum {
 
     PENDING,
     SENT,

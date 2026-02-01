@@ -3,7 +3,7 @@ package com.sinch.message.router.service.impl;
 import com.sinch.message.router.dao.entity.MessageEntity;
 import com.sinch.message.router.dao.repository.MessageRepository;
 import com.sinch.message.router.dao.repository.OptOutRepository;
-import com.sinch.message.router.enums.MessageStatusEnum;
+import com.sinch.message.router.enums.StatusEnum;
 import com.sinch.message.router.exceptions.ResourceNotFoundException;
 import com.sinch.message.router.models.MessageRequest;
 import com.sinch.message.router.models.MessageResponse;
@@ -31,13 +31,13 @@ public class MessageServiceImpl implements IMessageService {
         if (optOutRepository.isOptOut(messageRequest.getPhoneNumber())) {
             messageEntity =
                     messageRepository.save(messageMappingUtil.mapMessageRequestToMessageEntity(messageRequest,
-                    MessageStatusEnum.BLOCKED));
+                    StatusEnum.BLOCKED));
             return messageMappingUtil.mapMessageEntityToMessageResponse(messageEntity);
         }
 
         messageEntity =
                 messageRepository.save(messageMappingUtil.mapMessageRequestToMessageEntity(messageRequest,
-                        MessageStatusEnum.PENDING));
+                        StatusEnum.PENDING));
         return messageMappingUtil.mapMessageEntityToMessageResponse(messageEntity);
     }
 
@@ -54,9 +54,9 @@ public class MessageServiceImpl implements IMessageService {
     @Override
     public MessageResponse optOut(final String phoneNumber) {
         if (optOutRepository.optOut(phoneNumber)) {
-            return new MessageResponse(MessageStatusEnum.OPTED_OUT);
+            return new MessageResponse(StatusEnum.OPTED_OUT);
         } else {
-            return new MessageResponse(MessageStatusEnum.ALREADY_OPTED_OUT);
+            return new MessageResponse(StatusEnum.ALREADY_OPTED_OUT);
         }
     }
 

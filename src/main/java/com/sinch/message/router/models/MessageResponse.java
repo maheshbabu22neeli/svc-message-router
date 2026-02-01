@@ -3,7 +3,7 @@ package com.sinch.message.router.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.sinch.message.router.enums.CarrierEnum;
-import com.sinch.message.router.enums.MessageStatusEnum;
+import com.sinch.message.router.enums.StatusEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,19 +17,19 @@ public class MessageResponse {
 
     private String id;
     private String phoneNumber;
-    private MessageStatusEnum status;
+    private StatusEnum status;
     private CarrierEnum carrierName;
 
-    public MessageResponse(String id, MessageStatusEnum status) {
+    public MessageResponse(String id, StatusEnum status) {
         this.id = id;
         this.status = status;
     }
 
-    public MessageResponse(MessageStatusEnum status) {
+    public MessageResponse(StatusEnum status) {
         this.status = status;
     }
 
-    public MessageResponse(String id, MessageStatusEnum status, CarrierEnum carrierName) {
+    public MessageResponse(String id, StatusEnum status, CarrierEnum carrierName) {
         this.id = id;
         this.status = status;
         this.carrierName = carrierName;

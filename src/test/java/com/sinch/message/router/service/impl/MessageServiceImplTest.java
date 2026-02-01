@@ -4,7 +4,7 @@ import com.sinch.message.router.dao.entity.MessageEntity;
 import com.sinch.message.router.dao.repository.MessageRepository;
 import com.sinch.message.router.dao.repository.OptOutRepository;
 import com.sinch.message.router.enums.CarrierEnum;
-import com.sinch.message.router.enums.MessageStatusEnum;
+import com.sinch.message.router.enums.StatusEnum;
 import com.sinch.message.router.exceptions.ResourceNotFoundException;
 import com.sinch.message.router.models.MessageRequest;
 import com.sinch.message.router.models.MessageResponse;
@@ -50,20 +50,20 @@ public class MessageServiceImplTest {
         messageRequest.setFormat("SMS");
 
         MessageEntity blockedEntity = new MessageEntity(messageRequest.getPhoneNumber(),
-                messageRequest.getContent(), messageRequest.getFormat(), CarrierEnum.TELSTRA, MessageStatusEnum.BLOCKED);
+                messageRequest.getContent(), messageRequest.getFormat(), CarrierEnum.TELSTRA, StatusEnum.BLOCKED);
 
-        MessageResponse response = new MessageResponse(blockedEntity.getId(), MessageStatusEnum.BLOCKED);
+        MessageResponse response = new MessageResponse(blockedEntity.getId(), StatusEnum.BLOCKED);
 
         when(optOutRepository.isOptOut(messageRequest.getPhoneNumber())).thenReturn(true);
         when(messageMappingUtil.mapMessageRequestToMessageEntity(
-                messageRequest, MessageStatusEnum.BLOCKED)).thenReturn(blockedEntity);
+                messageRequest, StatusEnum.BLOCKED)).thenReturn(blockedEntity);
         when(messageRepository.save(blockedEntity)).thenReturn(blockedEntity);
         when(messageMappingUtil.mapMessageEntityToMessageResponse(blockedEntity))
                 .thenReturn(response);
 
         MessageResponse messageResponse = messageService.sendMessage(messageRequest);
 
-        assertEquals(MessageStatusEnum.BLOCKED, messageResponse.getStatus());
+        assertEquals(StatusEnum.BLOCKED, messageResponse.getStatus());
         assertEquals(blockedEntity.getId(), messageResponse.getId());
 
         verify(optOutRepository).isOptOut(messageRequest.getPhoneNumber());
@@ -79,20 +79,20 @@ public class MessageServiceImplTest {
         messageRequest.setFormat("SMS");
 
         MessageEntity pendingEntity = new MessageEntity(messageRequest.getPhoneNumber(),
-                messageRequest.getContent(), messageRequest.getFormat(), CarrierEnum.TELSTRA, MessageStatusEnum.PENDING);
+                messageRequest.getContent(), messageRequest.getFormat(), CarrierEnum.TELSTRA, StatusEnum.PENDING);
 
-        MessageResponse response = new MessageResponse(pendingEntity.getId(), MessageStatusEnum.PENDING);
+        MessageResponse response = new MessageResponse(pendingEntity.getId(), StatusEnum.PENDING);
 
         when(optOutRepository.isOptOut(messageRequest.getPhoneNumber())).thenReturn(false);
         when(messageMappingUtil.mapMessageRequestToMessageEntity(
-                messageRequest, MessageStatusEnum.PENDING)).thenReturn(pendingEntity);
+                messageRequest, StatusEnum.PENDING)).thenReturn(pendingEntity);
         when(messageRepository.save(pendingEntity)).thenReturn(pendingEntity);
         when(messageMappingUtil.mapMessageEntityToMessageResponse(pendingEntity))
                 .thenReturn(response);
 
         MessageResponse messageResponse = messageService.sendMessage(messageRequest);
 
-        assertEquals(MessageStatusEnum.PENDING, messageResponse.getStatus());
+        assertEquals(StatusEnum.PENDING, messageResponse.getStatus());
         assertEquals(pendingEntity.getId(), messageResponse.getId());
 
         verify(optOutRepository).isOptOut(messageRequest.getPhoneNumber());
@@ -125,9 +125,9 @@ public class MessageServiceImplTest {
         messageRequest.setFormat("SMS");
 
         MessageEntity messageEntity = new MessageEntity(messageRequest.getPhoneNumber(),
-                messageRequest.getContent(), messageRequest.getFormat(), CarrierEnum.TELSTRA, MessageStatusEnum.PENDING);
+                messageRequest.getContent(), messageRequest.getFormat(), CarrierEnum.TELSTRA, StatusEnum.PENDING);
 
-        MessageResponse response = new MessageResponse(messageEntity.getId(), MessageStatusEnum.PENDING);
+        MessageResponse response = new MessageResponse(messageEntity.getId(), StatusEnum.PENDING);
 
         when(messageRepository.findById(messageEntity.getId())).thenReturn(Optional.of(messageEntity));
         when(messageMappingUtil.mapMessageEntityToMessageResponse(messageEntity))
@@ -137,7 +137,7 @@ public class MessageServiceImplTest {
 
         assertNotNull(messageResult);
         assertEquals(messageEntity.getId(), messageResult.getId());
-        assertEquals(MessageStatusEnum.PENDING, messageResult.getStatus());
+        assertEquals(StatusEnum.PENDING, messageResult.getStatus());
 
         verify(messageRepository).findById(messageEntity.getId());
         verify(messageMappingUtil).mapMessageEntityToMessageResponse(messageEntity);
@@ -152,7 +152,7 @@ public class MessageServiceImplTest {
         MessageResponse messageResult = messageService.optOut(phoneNumber);
 
         assertNotNull(messageResult);
-        assertEquals(MessageStatusEnum.OPTED_OUT, messageResult.getStatus());
+        assertEquals(StatusEnum.OPTED_OUT, messageResult.getStatus());
     }
 
     @Test
@@ -164,7 +164,7 @@ public class MessageServiceImplTest {
         MessageResponse messageResult = messageService.optOut(phoneNumber);
 
         assertNotNull(messageResult);
-        assertEquals(MessageStatusEnum.ALREADY_OPTED_OUT, messageResult.getStatus());
+        assertEquals(StatusEnum.ALREADY_OPTED_OUT, messageResult.getStatus());
     }
 
 }

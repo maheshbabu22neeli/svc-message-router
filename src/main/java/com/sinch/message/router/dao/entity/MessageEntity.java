@@ -1,7 +1,7 @@
 package com.sinch.message.router.dao.entity;
 
 import com.sinch.message.router.enums.CarrierEnum;
-import com.sinch.message.router.enums.MessageStatusEnum;
+import com.sinch.message.router.enums.StatusEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,10 +16,10 @@ public class MessageEntity {
     private String content;
     private String format;
     private CarrierEnum carrierName;
-    private MessageStatusEnum status;
+    private StatusEnum status;
 
     public MessageEntity(String phoneNumber, String content, String format, CarrierEnum carrierName,
-                         MessageStatusEnum status) {
+                         StatusEnum status) {
         this.id = UUID.randomUUID().toString();
         this.phoneNumber = phoneNumber;
         this.content = content;
